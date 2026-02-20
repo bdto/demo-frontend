@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
+import Spinner from '../components/Spinner';
+import EmptyState from '../components/EmptyState';
+import styles from './Products.module.css';
 
 export default function Products() {
   const [searchParams] = useSearchParams();
@@ -53,35 +56,34 @@ export default function Products() {
   };
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ marginBottom: '1.5rem', color: '#1a1a2e' }}>Catalogo de Productos</h1>
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Catalogo de Productos</h1>
+        <p className={styles.subtitle}>Encuentra lo que necesitas entre nuestra seleccion</p>
+      </div>
 
-      {/* Barra de busqueda */}
-      <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-        <input
-          type="text"
-          placeholder="Buscar productos..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{ flex: 1, minWidth: '200px', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ddd', fontSize: '1rem' }}
-        />
-        <button type="submit" style={{ padding: '0.75rem 1.5rem', backgroundColor: '#1a1a2e', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-          Buscar
-        </button>
+      {/* Search Bar */}
+      <form onSubmit={handleSearch} className={styles.searchForm}>
+        <div className={styles.searchWrap}>
+          <svg className={styles.searchIcon} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
+        <button type="submit" className={styles.searchBtn}>Buscar</button>
       </form>
 
-      {/* Filtro por categoria */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+      {/* Category Filter Pills */}
+      <div className={styles.filters}>
         <button
           onClick={() => { setSelectedCategory(''); setPage(0); setSearch(''); }}
-          style={{
-            padding: '0.5rem 1rem',
-            backgroundColor: !selectedCategory ? '#1a1a2e' : '#f0f0f0',
-            color: !selectedCategory ? 'white' : '#333',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
+          className={`${styles.pill} ${!selectedCategory ? styles.pillActive : ''}`}
         >
           Todas
         </button>
@@ -89,46 +91,54 @@ export default function Products() {
           <button
             key={cat.id}
             onClick={() => { setSelectedCategory(cat.id.toString()); setPage(0); setSearch(''); }}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: selectedCategory === cat.id.toString() ? '#1a1a2e' : '#f0f0f0',
-              color: selectedCategory === cat.id.toString() ? 'white' : '#333',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
+            className={`${styles.pill} ${selectedCategory === cat.id.toString() ? styles.pillActive : ''}`}
           >
             {cat.name}
           </button>
         ))}
       </div>
 
-      {/* Grid de productos */}
+      {/* Product Grid */}
       {loading ? (
-        <p style={{ textAlign: 'center', color: '#666' }}>Cargando...</p>
+        <Spinner label="Cargando productos..." />
       ) : products.length === 0 ? (
-        <p style={{ textAlign: 'center', color: '#666' }}>No se encontraron productos</p>
+        <EmptyState
+          title="Sin resultados"
+          message="No se encontraron productos con los filtros seleccionados."
+        />
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+        <div className={styles.grid}>
+          {products.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
       )}
 
-      {/* Paginacion */}
+      {/* Pagination */}
       {totalPages > 1 && (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '2rem' }}>
-          <button onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0}
-            style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '4px', cursor: 'pointer', backgroundColor: page === 0 ? '#f9f9f9' : 'white' }}>
+        <div className={styles.pagination}>
+          <button
+            onClick={() => setPage(Math.max(0, page - 1))}
+            disabled={page === 0}
+            className={styles.pageBtn}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
             Anterior
           </button>
-          <span style={{ padding: '0.5rem 1rem', color: '#666' }}>
-            Pagina {page + 1} de {totalPages}
+          <span className={styles.pageInfo}>
+            {page + 1} de {totalPages}
           </span>
-          <button onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1}
-            style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '4px', cursor: 'pointer', backgroundColor: page >= totalPages - 1 ? '#f9f9f9' : 'white' }}>
+          <button
+            onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
+            disabled={page >= totalPages - 1}
+            className={styles.pageBtn}
+          >
             Siguiente
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
           </button>
         </div>
       )}

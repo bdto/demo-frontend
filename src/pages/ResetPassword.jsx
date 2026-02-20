@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
+import AuthLayout from '../components/AuthLayout';
+import FormInput from '../components/FormInput';
+import Spinner from '../components/Spinner';
+import styles from './AuthForm.module.css';
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -32,26 +36,60 @@ export default function ResetPassword() {
 
   if (!token) {
     return (
-      <div style={{ maxWidth: '400px', margin: '4rem auto', textAlign: 'center' }}>
-        <h2>Token invalido</h2>
-        <p>El enlace de recuperacion no es valido o ha expirado.</p>
-      </div>
+      <AuthLayout title="Enlace invalido" subtitle="El enlace de recuperacion no es valido o ha expirado">
+        <div className={styles.errorCard}>
+          <div className={styles.errorIcon}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>
+          </div>
+          <h3 className={styles.errorTitle}>Token invalido</h3>
+          <p className={styles.errorText}>
+            El enlace de recuperacion no es valido o ha expirado. Solicita uno nuevo.
+          </p>
+          <Link to="/forgot-password" className={styles.successLink}>
+            Solicitar nuevo enlace
+          </Link>
+        </div>
+      </AuthLayout>
     );
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '4rem auto', padding: '2rem' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Nueva Contrasena</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <input name="newPassword" type="password" placeholder="Nueva contrasena (min 8 caracteres)" value={form.newPassword} onChange={handleChange} required
-          style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #ddd', fontSize: '1rem' }} />
-        <input name="confirmPassword" type="password" placeholder="Confirmar contrasena" value={form.confirmPassword} onChange={handleChange} required
-          style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #ddd', fontSize: '1rem' }} />
-        <button type="submit" disabled={loading}
-          style={{ padding: '0.75rem', backgroundColor: '#1a1a2e', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', cursor: 'pointer' }}>
-          {loading ? 'Guardando...' : 'Restablecer contrasena'}
+    <AuthLayout
+      title="Nueva contrasena"
+      subtitle="Ingresa y confirma tu nueva contrasena"
+      icon={
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#ffffff">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+        </svg>
+      }
+    >
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FormInput
+          label="Nueva contrasena"
+          type="password"
+          name="newPassword"
+          placeholder="Minimo 8 caracteres"
+          value={form.newPassword}
+          onChange={handleChange}
+          required
+          autoComplete="new-password"
+        />
+        <FormInput
+          label="Confirmar contrasena"
+          type="password"
+          name="confirmPassword"
+          placeholder="Repite tu contrasena"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          required
+          autoComplete="new-password"
+        />
+        <button type="submit" disabled={loading} className={styles.btnSubmit}>
+          {loading ? <Spinner size="sm" /> : 'Restablecer contrasena'}
         </button>
       </form>
-    </div>
+    </AuthLayout>
   );
 }

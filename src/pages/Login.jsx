@@ -3,6 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
+import AuthLayout from '../components/AuthLayout';
+import FormInput from '../components/FormInput';
+import Spinner from '../components/Spinner';
+import styles from './AuthForm.module.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -34,48 +38,45 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '4rem auto', padding: '2rem' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Iniciar Sesion</h2>
-
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <input
+    <AuthLayout
+      title="Bienvenido de vuelta"
+      subtitle="Ingresa tus credenciales para acceder a tu cuenta"
+      icon={
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#ffffff">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+      }
+    >
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FormInput
+          label="Correo electronico"
           type="email"
-          placeholder="Correo electronico"
+          name="email"
+          placeholder="tu@ejemplo.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #ddd', fontSize: '1rem' }}
+          autoComplete="email"
         />
-        <input
+        <FormInput
+          label="Contrasena"
           type="password"
-          placeholder="Contrasena"
+          name="password"
+          placeholder="Ingresa tu contrasena"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #ddd', fontSize: '1rem' }}
+          autoComplete="current-password"
         />
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            padding: '0.75rem',
-            backgroundColor: '#1a1a2e',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            fontSize: '1rem',
-            cursor: 'pointer',
-            opacity: loading ? 0.7 : 1
-          }}
-        >
-          {loading ? 'Cargando...' : 'Iniciar Sesion'}
+        <button type="submit" disabled={loading} className={styles.btnSubmit}>
+          {loading ? <Spinner size="sm" /> : 'Iniciar Sesion'}
         </button>
       </form>
 
-      <div style={{ textAlign: 'center', marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Link to="/forgot-password" style={{ color: '#0f3460' }}>Olvide mi contrasena</Link>
-        <span>No tienes cuenta? <Link to="/register" style={{ color: '#0f3460' }}>Registrate</Link></span>
+      <div className={styles.footer}>
+        <Link to="/forgot-password">{'Olvidaste tu contrasena?'}</Link>
+        <span>{'No tienes cuenta? '}<Link to="/register">Registrate</Link></span>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
