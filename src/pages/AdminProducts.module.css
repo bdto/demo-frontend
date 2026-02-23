@@ -1,0 +1,305 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 99px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+}
+
+/* Form Card */
+.formCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  transition: border-color var(--transition-fast);
+}
+
+.formCardEditing {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.06);
+}
+
+.formTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.formTitleDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: none;
+}
+
+.formCardEditing .formTitleDot {
+  display: block;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.formActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  align-self: end;
+}
+
+.btnCreate {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.6875rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-primary);
+  transition: background var(--transition-fast), opacity var(--transition-fast);
+}
+
+.btnCreate:hover:not(:disabled) {
+  background: var(--color-primary-light);
+}
+
+.btnCreate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnUpdate {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.6875rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-accent);
+  transition: background var(--transition-fast), opacity var(--transition-fast);
+}
+
+.btnUpdate:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.btnUpdate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnCancel {
+  padding: 0.6875rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  transition: all var(--transition-fast);
+}
+
+.btnCancel:hover {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+/* Table Card */
+.tableCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tableTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.tableCount {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-background);
+  padding: 0.25rem 0.5rem;
+  border-radius: 99px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: var(--color-background);
+}
+
+.table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.table tbody tr {
+  transition: background var(--transition-fast);
+}
+
+.table tbody tr:hover {
+  background: var(--color-background);
+}
+
+.productName {
+  font-weight: 500;
+}
+
+.productPrice {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.productCategory {
+  display: inline-flex;
+  padding: 0.1875rem 0.5rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--color-background);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.actions {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.btnEdit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: rgba(15, 23, 42, 0.05);
+  transition: background var(--transition-fast);
+}
+
+.btnEdit:hover {
+  background: rgba(15, 23, 42, 0.1);
+}
+
+.btnDelete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-danger);
+  background: rgba(239, 68, 68, 0.05);
+  transition: background var(--transition-fast);
+}
+
+.btnDelete:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.375rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: 1.25rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}

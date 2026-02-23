@@ -1,0 +1,177 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btnSubmit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-primary);
+  transition: background var(--transition-fast), opacity var(--transition-fast);
+  margin-top: 0.25rem;
+}
+
+.btnSubmit:hover:not(:disabled) {
+  background: var(--color-primary-light);
+}
+
+.btnSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.footer a {
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.footer a:hover {
+  color: var(--color-accent);
+}
+
+.successCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.successIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.successIcon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--color-success);
+}
+
+.successTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.successText {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.successLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+.successLink:hover {
+  color: var(--color-accent);
+}
+
+/* Error state card */
+.errorCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.errorIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.errorIcon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--color-danger);
+}
+
+.errorTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.errorText {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* Password strength */
+.strengthBar {
+  display: flex;
+  gap: 4px;
+  margin-top: -0.25rem;
+}
+
+.strengthSegment {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-border);
+  transition: background var(--transition-fast);
+}
+
+.strengthSegment.active {
+  background: var(--color-border);
+}
+
+.strengthWeak .active {
+  background: var(--color-danger);
+}
+
+.strengthMedium .active {
+  background: var(--color-warning);
+}
+
+.strengthStrong .active {
+  background: var(--color-success);
+}
+
+.strengthLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: -0.25rem;
+}
