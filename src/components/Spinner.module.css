@@ -3,8 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 2rem;
+  gap: 1.25rem;
+  padding: 3rem 2rem;
 }
 
 .fullPage {
@@ -13,9 +13,20 @@
 
 .spinner {
   border-radius: 50%;
-  border: 3px solid var(--color-border);
+  border: 3px solid var(--color-border-light);
   border-top-color: var(--color-accent);
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.65s linear infinite;
+  position: relative;
+}
+
+.spinner::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: rgba(233, 69, 96, 0.3);
+  animation: spin 1.2s linear infinite reverse;
 }
 
 .sm {
@@ -24,18 +35,29 @@
   border-width: 2px;
 }
 
+.sm::after {
+  border-width: 1.5px;
+  inset: 2px;
+}
+
 .md {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 }
 
 .lg {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+  border-width: 4px;
+}
+
+.lg::after {
+  inset: 4px;
 }
 
 .label {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--color-text-secondary);
   font-weight: 500;
+  animation: pulse 2s ease-in-out infinite;
 }
