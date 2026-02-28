@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
 import Spinner from '../components/Spinner';
@@ -57,13 +58,24 @@ export default function Products() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
+      <motion.div
+        className={styles.header}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      >
         <h1 className={styles.title}>Catalogo de Productos</h1>
         <p className={styles.subtitle}>Encuentra lo que necesitas entre nuestra seleccion</p>
-      </div>
+      </motion.div>
 
       {/* Search Bar */}
-      <form onSubmit={handleSearch} className={styles.searchForm}>
+      <motion.form
+        onSubmit={handleSearch}
+        className={styles.searchForm}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className={styles.searchWrap}>
           <svg className={styles.searchIcon} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -77,10 +89,15 @@ export default function Products() {
           />
         </div>
         <button type="submit" className={styles.searchBtn}>Buscar</button>
-      </form>
+      </motion.form>
 
       {/* Category Filter Pills */}
-      <div className={styles.filters}>
+      <motion.div
+        className={styles.filters}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      >
         <button
           onClick={() => { setSelectedCategory(''); setPage(0); setSearch(''); }}
           className={`${styles.pill} ${!selectedCategory ? styles.pillActive : ''}`}
@@ -96,7 +113,7 @@ export default function Products() {
             {cat.name}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Product Grid */}
       {loading ? (
@@ -116,7 +133,12 @@ export default function Products() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className={styles.pagination}>
+        <motion.div
+          className={styles.pagination}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
+        >
           <button
             onClick={() => setPage(Math.max(0, page - 1))}
             disabled={page === 0}
@@ -140,7 +162,7 @@ export default function Products() {
               <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </button>
-        </div>
+        </motion.div>
       )}
     </div>
   );

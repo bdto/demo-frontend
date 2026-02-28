@@ -1,7 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.125rem;
 }
 
 .btnSubmit {
@@ -10,22 +10,44 @@
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 0.75rem;
-  border-radius: var(--radius-sm);
+  padding: 0.8125rem;
+  border-radius: var(--radius-md);
   font-size: 0.9375rem;
   font-weight: 600;
   color: #ffffff;
-  background: var(--color-primary);
-  transition: background var(--transition-fast), opacity var(--transition-fast);
-  margin-top: 0.25rem;
+  background: var(--color-accent);
+  box-shadow: 0 4px 16px rgba(233, 69, 96, 0.2);
+  transition: all var(--transition-fast);
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnSubmit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
 }
 
 .btnSubmit:hover:not(:disabled) {
-  background: var(--color-primary-light);
+  background: var(--color-accent-hover);
+  box-shadow: 0 6px 24px rgba(233, 69, 96, 0.3);
+  transform: translateY(-1px);
+}
+
+.btnSubmit:hover:not(:disabled)::after {
+  opacity: 1;
+}
+
+.btnSubmit:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btnSubmit:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
@@ -33,125 +55,181 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+  gap: 0.625rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-light);
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
 }
 
 .footer a {
-  color: var(--color-primary);
-  font-weight: 500;
+  color: var(--color-accent);
+  font-weight: 600;
   transition: color var(--transition-fast);
+  position: relative;
+}
+
+.footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-accent);
+  transition: width var(--transition-base);
 }
 
 .footer a:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
+.footer a:hover::after {
+  width: 100%;
+}
+
+/* ===== Success Card ===== */
 .successCard {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.875rem;
+  padding: 1rem 0;
 }
 
 .successIcon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(12, 198, 138, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.25rem;
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(12, 198, 138, 0.2); }
+  50% { box-shadow: 0 0 0 12px rgba(12, 198, 138, 0); }
 }
 
 .successIcon svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   color: var(--color-success);
 }
 
 .successTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 .successText {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
+  max-width: 300px;
 }
 
 .successLink {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  color: var(--color-primary);
-  font-weight: 500;
+  color: var(--color-accent);
+  font-weight: 600;
   font-size: 0.875rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   transition: color var(--transition-fast);
+  position: relative;
+}
+
+.successLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-accent);
+  transition: width var(--transition-base);
 }
 
 .successLink:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
-/* Error state card */
+.successLink:hover::after {
+  width: 100%;
+}
+
+/* ===== Error Card ===== */
 .errorCard {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.875rem;
+  padding: 1rem 0;
 }
 
 .errorIcon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: rgba(239, 68, 68, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.25rem;
+  animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
 }
 
 .errorIcon svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   color: var(--color-danger);
 }
 
 .errorTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--color-text-primary);
+  letter-spacing: -0.01em;
 }
 
 .errorText {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
+  max-width: 300px;
 }
 
-/* Password strength */
+/* ===== Password Strength ===== */
 .strengthBar {
   display: flex;
-  gap: 4px;
-  margin-top: -0.25rem;
+  gap: 5px;
+  margin-top: -0.125rem;
 }
 
 .strengthSegment {
   flex: 1;
-  height: 3px;
+  height: 4px;
   border-radius: 2px;
   background: var(--color-border);
-  transition: background var(--transition-fast);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
 }
 
 .strengthSegment.active {
@@ -160,18 +238,22 @@
 
 .strengthWeak .active {
   background: var(--color-danger);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
 }
 
 .strengthMedium .active {
   background: var(--color-warning);
+  box-shadow: 0 0 8px rgba(245, 166, 35, 0.2);
 }
 
 .strengthStrong .active {
   background: var(--color-success);
+  box-shadow: 0 0 8px rgba(12, 198, 138, 0.2);
 }
 
 .strengthLabel {
   font-size: 0.75rem;
   color: var(--color-text-muted);
-  margin-top: -0.25rem;
+  margin-top: -0.125rem;
+  font-weight: 500;
 }

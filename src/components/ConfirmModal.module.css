@@ -1,54 +1,65 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(10, 15, 30, 0.5);
+  backdrop-filter: blur(8px) saturate(120%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
 .modal {
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
-  max-width: 400px;
+  max-width: 420px;
   width: 100%;
-  padding: 2rem;
+  padding: 2.25rem;
   text-align: center;
+  border: 1px solid var(--color-border-light);
 }
 
 .iconCircle {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background-color: rgba(239, 68, 68, 0.08);
+  background: rgba(239, 68, 68, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.25rem;
+  position: relative;
+}
+
+.iconCircle::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(239, 68, 68, 0.08);
 }
 
 .iconCircle svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   color: var(--color-danger);
 }
 
 .title {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.625rem;
+  letter-spacing: -0.02em;
 }
 
 .message {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
 }
 
 .actions {
@@ -59,31 +70,35 @@
 
 .btnCancel {
   flex: 1;
-  padding: 0.625rem 1rem;
-  border-radius: var(--radius-sm);
+  padding: 0.6875rem 1.25rem;
+  border-radius: var(--radius-md);
   border: 1.5px solid var(--color-border);
   background: var(--color-surface);
   color: var(--color-text-primary);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.875rem;
-  transition: background var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .btnCancel:hover {
   background: var(--color-background);
+  border-color: var(--color-text-muted);
 }
 
 .btnConfirm {
   flex: 1;
-  padding: 0.625rem 1rem;
-  border-radius: var(--radius-sm);
+  padding: 0.6875rem 1.25rem;
+  border-radius: var(--radius-md);
   background: var(--color-danger);
   color: #ffffff;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.875rem;
-  transition: background var(--transition-fast);
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 .btnConfirm:hover {
   background: #dc2626;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
 }
